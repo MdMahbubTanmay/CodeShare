@@ -31,5 +31,20 @@ public class AddData {
        ApiFuture<WriteResult> result = docRef.set(data);
        System.out.println("Update time: " + result.get().getUpdateTime());
    }
+    
+    
+    
+    public static void createUser(String code) throws Exception {
+       Firestore db = FirebaseInitializer.getFirestore();
+
+
+       DocumentReference docRef = db.collection("Rooms").document(MainUI.MID);
+       Map<String, Object> data = new HashMap<>();
+       data.put("Code", code);
+       data.put("isLocked", "false");
+
+       ApiFuture<WriteResult> result = docRef.set(data);
+       System.out.println("Update time: " + result.get().getUpdateTime());
+   }
 
 }
