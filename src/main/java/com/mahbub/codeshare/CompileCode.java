@@ -10,18 +10,21 @@ import java.awt.Component;
  * @author mahbub
  */
 public class CompileCode {
+    static String code;
+    static String fileName;
+    static String execName;
+    static String signature = "Developed by Mahbub Tanmay , UFTB";
+
+    
+    static String os = System.getProperty("os.name").toLowerCase();
+    static String home = System.getProperty("user.home");
+    
     
     public static void CompileC(String MyCode, Component mahbub) {
-    String code = MyCode;
-    String fileName;
-    String execName;
-    
-    String os = System.getProperty("os.name").toLowerCase();
-    String home = System.getProperty("user.home");
-    
-    // Define paths clearly
+
+    code = MyCode;
+   
     if (os.contains("win")) {
-        // Use a simple path for teacher's Windows
         fileName = "C:\\Users\\Public\\Documents\\c_code.c";
         execName = "C:\\Users\\Public\\Documents\\c_code_exec.exe";
     } else {
@@ -31,24 +34,73 @@ public class CompileCode {
     }
 
     try {
-        // 1. Write the file
+
         java.nio.file.Files.writeString(java.nio.file.Paths.get(fileName), code);
 
-        // 2. Compile with GCC
-        // Note: We tell GCC exactly where to put the output file
+
         Process compile = new ProcessBuilder("gcc", fileName, "-o", execName).start();
         int exitCode = compile.waitFor();
 
         if (exitCode == 0) {
             if (os.contains("win")) {
-                // Windows command to open new CMD and run
-                new ProcessBuilder("cmd", "/c", "start", "cmd", "/k", "\"" + execName + "\"").start();
-            } else {
-                // Ubuntu command for gnome-terminal
-                new ProcessBuilder("gnome-terminal", "--", "bash", "-c", execName + "; echo; echo 'Process finished. Press any key to exit...'; read -n1; exec bash").start();
-            }
+    
+    new ProcessBuilder("cmd", "/c", "start", "cmd", "/k", 
+        "color 0B & \"" + execName + "\" & echo. & echo " + signature + " & pause").start();
+} else {
+    
+    String coloredSign = "\\e[32m" + signature + "\\e[0m";
+    new ProcessBuilder("gnome-terminal", "--", "bash", "-c", 
+        execName + "; echo -e '\\n" + coloredSign + "'; echo 'Press any key...'; read -n1").start();
+}
         } else {
             JOptionPane.showMessageDialog(mahbub, "Compilation Failed! Check your C syntax.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
+    } catch (Exception ex) {
+        JOptionPane.showMessageDialog(mahbub, "Error: " + ex.getMessage());
+        ex.printStackTrace();
+    }
+    }
+    
+    
+    
+    
+    
+    
+    public static void CompileCpp(String MyCode, Component mahbub) {
+
+    code = MyCode;
+   
+    if (os.contains("win")) {
+        fileName = "C:\\Users\\Public\\Documents\\cpp_code.cpp";
+        execName = "C:\\Users\\Public\\Documents\\cpp_code_exec.exe";
+    } else {
+        // Ubuntu Public folder
+        fileName = home + "/Public/cpp_code.cpp";
+        execName = home + "/Public/cpp_code_exec";
+    }
+
+    try {
+
+        java.nio.file.Files.writeString(java.nio.file.Paths.get(fileName), code);
+
+
+        Process compile = new ProcessBuilder("g++", fileName, "-o", execName).start();
+        int exitCode = compile.waitFor();
+
+        if (exitCode == 0) {
+           if (os.contains("win")) {
+    
+    new ProcessBuilder("cmd", "/c", "start", "cmd", "/k", 
+        "color 0B & \"" + execName + "\" & echo. & echo " + signature + " & pause").start();
+} else {
+    
+    String coloredSign = "\\e[32m" + signature + "\\e[0m";
+    new ProcessBuilder("gnome-terminal", "--", "bash", "-c", 
+        execName + "; echo -e '\\n" + coloredSign + "'; echo 'Press any key...'; read -n1").start();
+}
+        } else {
+            JOptionPane.showMessageDialog(mahbub, "Compilation Failed! Check your Cpp syntax.", "Error", JOptionPane.ERROR_MESSAGE);
         }
 
     } catch (Exception ex) {

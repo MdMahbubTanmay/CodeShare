@@ -31,7 +31,7 @@ public class FirebaseInitializer {
 
    public static void initialize() {
        try {
-           FileInputStream serviceAccount = new FileInputStream("./serviceAccountKey.json");
+           FileInputStream serviceAccount = new FileInputStream("serviceAccountKey.json");
 
 
            FirebaseOptions options = FirebaseOptions.builder()

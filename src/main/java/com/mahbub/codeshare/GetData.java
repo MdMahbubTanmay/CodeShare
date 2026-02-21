@@ -16,7 +16,12 @@ import com.google.cloud.firestore.DocumentSnapshot;
 import com.google.cloud.firestore.Firestore;
 
 public class GetData {
-    public static String getCode() throws Exception {
+    
+    public static boolean isExist;
+    public static String Code;
+    public static String isLocked = "true";
+    
+    public static void getCode() throws Exception {
         Firestore db = FirebaseInitializer.getFirestore();
         
         // Pointing to sourceUID instead of MID to fetch the specific user's code
@@ -27,10 +32,13 @@ public class GetData {
 
         if (document.exists()) {
             // Check if the "Code" field actually exists in that document
+            isExist = true;
             String fetchedCode = document.getString("Code");
-            return (fetchedCode != null) ? fetchedCode : "// No code found in this document";
+            Code = (fetchedCode != null) ? fetchedCode : "// No code found in this document";
+            isLocked = document.getString("isLocked");
         } else {
-            return "// Error: Invalid Room!";
+            isExist = false;
+            Code = "// Error: Invalid Room!";
         }
     }
 }

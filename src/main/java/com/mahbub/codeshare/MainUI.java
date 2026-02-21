@@ -79,15 +79,16 @@ public class MainUI extends javax.swing.JFrame {
         jTextArea2 = new javax.swing.JTextArea();
         SendCode = new javax.swing.JButton();
         ReloadCode = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        CompileCBtn = new javax.swing.JButton();
+        CompileCppBtn = new javax.swing.JButton();
         MachineID = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         roomID = new javax.swing.JTextPane();
         joinButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        AboutBtn = new javax.swing.JButton();
+        CreateYours = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -106,8 +107,11 @@ public class MainUI extends javax.swing.JFrame {
         ReloadCode.setText("Reload");
         ReloadCode.addActionListener(this::ReloadCodeActionPerformed);
 
-        jButton2.setText("C");
-        jButton2.addActionListener(this::jButton2ActionPerformed);
+        CompileCBtn.setText("C");
+        CompileCBtn.addActionListener(this::CompileCBtnActionPerformed);
+
+        CompileCppBtn.setText("C++");
+        CompileCppBtn.addActionListener(this::CompileCppBtnActionPerformed);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -123,8 +127,10 @@ public class MainUI extends javax.swing.JFrame {
                 .addGap(43, 43, 43)
                 .addComponent(SendCode)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton2)
-                .addGap(154, 154, 154))
+                .addComponent(CompileCBtn)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(CompileCppBtn)
+                .addGap(54, 54, 54))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -135,7 +141,8 @@ public class MainUI extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ReloadCode)
                     .addComponent(SendCode)
-                    .addComponent(jButton2))
+                    .addComponent(CompileCBtn)
+                    .addComponent(CompileCppBtn))
                 .addGap(25, 25, 25))
         );
 
@@ -152,11 +159,11 @@ public class MainUI extends javax.swing.JFrame {
 
         jLabel2.setText("Or enter Someone else UID here to Join");
 
-        jButton1.setText("?");
-        jButton1.addActionListener(this::jButton1ActionPerformed);
+        AboutBtn.setText("?");
+        AboutBtn.addActionListener(this::AboutBtnActionPerformed);
 
-        jButton3.setText("Join Yours");
-        jButton3.addActionListener(this::jButton3ActionPerformed);
+        CreateYours.setText("Join Yours");
+        CreateYours.addActionListener(this::CreateYoursActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -171,11 +178,11 @@ public class MainUI extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(MachineID, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(96, 96, 96)
-                .addComponent(jButton1)
+                .addComponent(AboutBtn)
                 .addGap(15, 15, 15))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(23, 23, 23)
-                .addComponent(jButton3)
+                .addComponent(CreateYours)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
@@ -191,7 +198,7 @@ public class MainUI extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(MachineID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1)
-                    .addComponent(jButton1))
+                    .addComponent(AboutBtn))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -200,7 +207,7 @@ public class MainUI extends javax.swing.JFrame {
                                 .addGap(3, 3, 3)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel2)
-                                    .addComponent(jButton3)))
+                                    .addComponent(CreateYours)))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -219,137 +226,124 @@ public class MainUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextArea2HierarchyChanged
 
     private void SendCodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SendCodeActionPerformed
-        if (!userCode.equals("// Error: Invalid Room!"))
-            {
-            
-                
-                
-         userCode = jTextArea2.getText();  
-        
         try {
-            AddData.addUser(userCode);
-        } catch (Exception ex) {
-            System.getLogger(MainUI.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
-        }
-                
-                
+                GetData.getCode();
+            } catch (Exception ex) {
+                System.getLogger(MainUI.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
             }
-        
-        
-       
-        
-    
-    }//GEN-LAST:event_SendCodeActionPerformed
 
-    private void joinButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_joinButtonActionPerformed
-        
-        if (roomID.getText().isEmpty())
-        {
-            JOptionPane.showMessageDialog(this, "Room ID cant be empty");
+        if (GetData.isExist && GetData.isLocked.equals("false")) {
+
+            userCode = jTextArea2.getText();
+
+            try {
+                AddData.addUser(userCode);
+            } catch (Exception ex) {
+                System.getLogger(MainUI.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+            }
+
         }
         else
         {
-            joinUID = roomID.getText();
-            
-            
-            
-            
-            
-            try {
+            JOptionPane.showMessageDialog(this, "** Maybe You are not joined In a valid room \n**Or Code sending permission is Off. Ask room creator");
+        }
 
-       userCode = GetData.getCode();
-        jTextArea2.setText(userCode);
-        
-        
-    } catch (Exception ex) {
-        javax.swing.JOptionPane.showMessageDialog(this, "Failed to fetch data: " + ex.getMessage(), "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
-        java.util.logging.Logger.getLogger(MainUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-    }
-            
-            
-            
-            if (userCode.equals("// Error: Invalid Room!"))
-            {
-            JOptionPane.showMessageDialog(this, "Invalid Room :" + joinUID);
+
+    }//GEN-LAST:event_SendCodeActionPerformed
+
+    private void joinButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_joinButtonActionPerformed
+
+        if (roomID.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Room ID cant be empty");
+        } else {
+            String oldUID = joinUID;
+            joinUID = roomID.getText();
+            boolean isFound = false;
+
+            try {
+                
+                GetData.getCode();
+                isFound = GetData.isExist;
+
+            } catch (Exception ex) {
+                javax.swing.JOptionPane.showMessageDialog(this, "Failed to fetch data: " + ex.getMessage(), "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+                java.util.logging.Logger.getLogger(MainUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
             }
-            else
-            {
-                JOptionPane.showMessageDialog(this, "Joined Room :" + joinUID);
+
+            if (!isFound) {
+                JOptionPane.showMessageDialog(this, "Invalid Room:" + joinUID+"\nCreate your own or enter valid UID");
+                joinUID = oldUID;
+            } else {
+                if (joinUID.equals(MID))
+                {
+                    JOptionPane.showMessageDialog(this, "Joined Your Own Room :" + joinUID);
+                }
+                else
+                {
+                    JOptionPane.showMessageDialog(this, "Joined Room :" + joinUID + isFound);
+                }
+                
             }
         }
     }//GEN-LAST:event_joinButtonActionPerformed
 
     private void ReloadCodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReloadCodeActionPerformed
      try {
-
-       userCode = GetData.getCode();
-        jTextArea2.setText(userCode);
-        
-        
-    } catch (Exception ex) {
-        javax.swing.JOptionPane.showMessageDialog(this, "Failed to fetch data: " + ex.getMessage(), "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
-        java.util.logging.Logger.getLogger(MainUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-    }
-    }//GEN-LAST:event_ReloadCodeActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        JOptionPane.showMessageDialog(this, "Joined Room :" + joinUID);
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        CompileCode.CompileC(jTextArea2.getText(), this);
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        
-        
-        joinUID = MID;
-            
-             
-        
+       GetData.getCode();
        
         
         
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        try {
-
-       userCode = GetData.getCode();
-        jTextArea2.setText(userCode);
-        
-        
     } catch (Exception ex) {
         javax.swing.JOptionPane.showMessageDialog(this, "Failed to fetch data: " + ex.getMessage(), "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
         java.util.logging.Logger.getLogger(MainUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
     }
-            
-            
-            
-            if (userCode.equals("// Error: Invalid Room!"))
-            {
-                
-                
-              try {
-            AddData.createUser("//New Room created");
-            jTextArea2.setText("//New Room created");
+     
+     if (GetData.isExist)
+     {
+         userCode = GetData.Code;
+        jTextArea2.setText(userCode);
+     }
+     else
+     {
+         JOptionPane.showMessageDialog(this, "Invalid Room :" + joinUID);
+     }
+    }//GEN-LAST:event_ReloadCodeActionPerformed
+
+    private void AboutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AboutBtnActionPerformed
+        JOptionPane.showMessageDialog(this, "Server Info \n\nJoined Room :" + joinUID+"\n\nDev Info\nDeveloped by, Md Mahbub Tanmay\nDepartment of Software Engineering, UFTB");
+    }//GEN-LAST:event_AboutBtnActionPerformed
+
+    private void CompileCBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CompileCBtnActionPerformed
+        CompileCode.CompileC(jTextArea2.getText(), this);
+    }//GEN-LAST:event_CompileCBtnActionPerformed
+
+    private void CreateYoursActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CreateYoursActionPerformed
+
+        joinUID = MID;
+
+
+        try {
+
+            GetData.getCode();
+
         } catch (Exception ex) {
-            System.getLogger(MainUI.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+            javax.swing.JOptionPane.showMessageDialog(this, "Failed to fetch data: " + ex.getMessage(), "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+            java.util.logging.Logger.getLogger(MainUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        
-                
+
+        if (!GetData.isExist) {
+
+            try {
+                AddData.createUser("//New Room created");
+                jTextArea2.setText("//New Room created");
+                JOptionPane.showMessageDialog(this, "Your Room created");
+            } catch (Exception ex) {
+                System.getLogger(MainUI.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
             }
-            else
-            {
-                JOptionPane.showMessageDialog(this, "Joined your own room");
-            }
+
+        } else {
+            JOptionPane.showMessageDialog(this, "Joined your own room");
+        }
         
         
         
@@ -374,7 +368,11 @@ public class MainUI extends javax.swing.JFrame {
          
             
             
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_CreateYoursActionPerformed
+
+    private void CompileCppBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CompileCppBtnActionPerformed
+        CompileCode.CompileCpp(jTextArea2.getText(), this);
+    }//GEN-LAST:event_CompileCppBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -402,12 +400,13 @@ public class MainUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton AboutBtn;
+    private javax.swing.JButton CompileCBtn;
+    private javax.swing.JButton CompileCppBtn;
+    private javax.swing.JButton CreateYours;
     private javax.swing.JTextField MachineID;
     private javax.swing.JButton ReloadCode;
     private javax.swing.JButton SendCode;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;

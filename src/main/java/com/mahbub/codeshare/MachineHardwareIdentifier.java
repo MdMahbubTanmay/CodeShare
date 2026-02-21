@@ -26,11 +26,9 @@ public class MachineHardwareIdentifier {
     try {
         if (os.contains("win")) {
          
-            String output = executeCommand("wmic csproduct get uuid");
-            String[] lines = output.split("\n");
-            if (lines.length > 1) {
-                id = lines[1].trim(); // Line 0 is the header "UUID", Line 1 is the ID
-            }
+            String output = executeCommand("powershell.exe (Get-CimInstance Win32_ComputerSystemProduct).UUID");
+            id =output.replace("UUID", "").trim();
+            
         } else {
            
             String output = executeCommand("cat /etc/machine-id");

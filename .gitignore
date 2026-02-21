@@ -2,3 +2,4 @@ serviceAccountKey.json
 build/
 nbproject/private/
 dist/
+target/
